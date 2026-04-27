@@ -29,6 +29,11 @@ agent-attempt/
 # They stay in the local working tree but are not part of the public repo.
 **/video-script.md
 
+# Swift Tuition logo image is used by the LaTeX build pipeline locally,
+# but does not need to ship in the public student-facing repo.
+**/Swift_Tuition_Logo.PNG
+**/Swift_Tuition_Logo.png
+
 # Editor / OS files
 .vscode/
 .idea/
