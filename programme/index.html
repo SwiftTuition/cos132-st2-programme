@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swift's ST2 Programme for Self-paced Learning | COS 132</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Source+Serif+4:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --burgundy: #6b2737;
+  --burgundy-light: #8a3a4d;
+  --amber: #c4893b;
+  --amber-light: #e4a85a;
+  --cream: #fffdf9;
+  --cream-shade: #f6f1e7;
+  --navy: #1a1a2e;
+  --teal: #2a7f7a;
+  --ink: #2a1f24;
+  --muted: #7a6b6e;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+p { margin: 0.6rem 0; }
+ul, ol { margin: 0.5rem 0; padding-left: 1.5rem; }
+li { margin: 0.25rem 0; }
+
+a { color: var(--burgundy); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: var(--burgundy-light); }
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 240px;
+  height: 100vh;
+  background: var(--navy);
+  color: var(--cream);
+  padding: 1.5rem 1.25rem;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.sidebar .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--amber);
+  margin-bottom: 1.25rem;
+}
+
+.sidebar .brand img {
+  width: 40px; height: 40px;
+  background: var(--cream);
+  border-radius: 4px;
+  padding: 3px;
+}
+
+.sidebar .brand-text {
+  font-family: 'Caveat', cursive;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.1;
+}
+
+.sidebar .brand-sub {
+  font-size: 0.7rem;
+  color: var(--amber-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0.15rem;
+}
+
+.sidebar h4 {
+  font-family: 'Caveat', cursive;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--amber);
+  margin: 1.25rem 0 0.5rem 0;
+}
+
+.sidebar ul { list-style: none; padding: 0; margin: 0; }
+.sidebar li { margin: 0.1rem 0; }
+
+.sidebar a.nav-main {
+  display: block;
+  color: var(--amber-light);
+  text-decoration: none;
+  padding: 0.45rem 0.6rem;
+  border-left: 3px solid transparent;
+  border-radius: 2px;
+  font-size: 0.95rem;
+}
+
+.sidebar a.nav-main.active,
+.sidebar a.nav-main:hover {
+  background: var(--burgundy);
+  border-left-color: var(--amber);
+  color: var(--cream);
+}
+
+.sidebar a.section-link {
+  display: block;
+  color: var(--cream);
+  text-decoration: none;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.9rem;
+  border-left: 3px solid transparent;
+  border-radius: 2px;
+}
+
+.sidebar a.section-link:hover {
+  background: rgba(196, 137, 59, 0.15);
+  border-left-color: var(--amber);
+}
+
+/* Layout */
+.layout {
+  margin-left: 240px;
+  min-height: 100vh;
+}
+
+/* Topbar */
+header.topbar {
+  background: var(--burgundy);
+  color: var(--cream);
+  padding: 1.5rem 2rem;
+}
+
+header.topbar .title {
+  font-family: 'Caveat', cursive;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+header.topbar .subtitle {
+  font-size: 0.95rem;
+  color: var(--cream);
+  opacity: 0.85;
+  margin-top: 0.25rem;
+  letter-spacing: 0.3px;
+}
+
+/* Main */
+main {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Card base */
+section.card {
+  background: white;
+  padding: 2rem 2.25rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+  border-top: 4px solid var(--amber);
+}
+
+section.card.lighter {
+  padding: 1.5rem 1.75rem;
+}
+
+section h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 2.4rem;
+  color: var(--burgundy);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.1;
+}
+
+section h3 {
+  font-size: 1.25rem;
+  color: var(--burgundy-light);
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem 0;
+}
+
+section h4 {
+  font-size: 1.05rem;
+  color: var(--burgundy);
+  font-weight: 600;
+  margin: 1rem 0 0.4rem 0;
+}
+
+/* Day card variant */
+section.day-card {
+  background: white;
+  padding: 1.75rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1.5rem;
+  border-top: 4px solid var(--amber);
+}
+
+.day-header {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #e8dfcf;
+  padding-bottom: 0.6rem;
+}
+
+.day-number {
+  font-family: 'Caveat', cursive;
+  font-size: 2.2rem;
+  color: var(--burgundy);
+  line-height: 1;
+}
+
+.day-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.day-theme {
+  font-style: italic;
+  color: var(--ink);
+  margin-left: auto;
+  font-size: 0.95rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+}
+
+.badge-live {
+  background: #d4eed0;
+  color: #3e6033;
+  border: 1px solid #5b8a4a;
+}
+
+.badge-build {
+  background: #fff5e6;
+  color: var(--burgundy);
+  border: 1px solid var(--amber);
+}
+
+.badge-soon {
+  background: var(--cream-shade);
+  color: var(--muted);
+  border: 1px solid #d8cfbf;
+}
+
+.badge-stage {
+  background: var(--cream-shade);
+  color: var(--burgundy);
+  border: 1px solid #d8cfbf;
+}
+
+.plan-pill {
+  display: inline-block;
+  background: var(--burgundy);
+  color: var(--cream);
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.05rem 0.55rem;
+  border-radius: 3px;
+  margin: 0 0.15rem;
+  vertical-align: middle;
+}
+
+.plan-pill.revisit {
+  background: var(--teal);
+}
+
+/* Day artifact rows */
+.artifact {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #f0e8d8;
+  align-items: start;
+}
+
+.artifact:last-child { border-bottom: none; }
+
+.artifact-label {
+  font-weight: 700;
+  color: var(--burgundy);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.artifact-body {
+  font-size: 0.95rem;
+}
+
+.artifact-body .scope {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Callouts */
+.callout {
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--amber);
+  border-radius: 0 6px 6px 0;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+  background: var(--cream-shade);
+}
+
+.swift-note {
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--teal);
+  border-radius: 0 6px 6px 0;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+  background: #e8f3f2;
+}
+
+.swift-note .head, .callout .head {
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.swift-note .head { color: var(--teal); }
+.callout .head { color: var(--burgundy); }
+
+/* Tables */
+table.aerial {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.92rem;
+}
+
+table.aerial th, table.aerial td {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #d8cfbf;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.aerial th {
+  background: var(--burgundy);
+  color: var(--cream);
+  font-weight: 700;
+  font-family: 'Source Serif 4', serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+table.aerial tr:nth-child(even) td {
+  background: var(--cream-shade);
+}
+
+table.aerial td.day-col {
+  font-family: 'Caveat', cursive;
+  font-size: 1.4rem;
+  color: var(--burgundy);
+  font-weight: 700;
+  text-align: center;
+  width: 60px;
+}
+
+/* Track legend */
+.track-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.track-card {
+  padding: 1rem 1.1rem;
+  border-radius: 6px;
+  background: var(--cream-shade);
+  border-top: 3px solid var(--amber);
+}
+
+.track-card h4 {
+  margin: 0 0 0.4rem 0;
+  font-family: 'Caveat', cursive;
+  font-size: 1.4rem;
+  color: var(--burgundy);
+}
+
+.track-card p {
+  font-size: 0.88rem;
+  margin: 0.2rem 0;
+}
+
+/* Status legend */
+.legend {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 0.75rem 0;
+  font-size: 0.88rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Bank grid */
+.bank-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.bank-card {
+  background: white;
+  border: 1px solid #e8dfcf;
+  border-left: 4px solid var(--amber);
+  border-radius: 0 4px 4px 0;
+  padding: 0.85rem 1rem;
+}
+
+.bank-card h4 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1rem;
+  color: var(--burgundy);
+}
+
+.bank-card .bank-meta {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 0.4rem;
+}
+
+.bank-card ul {
+  margin: 0.3rem 0;
+  padding-left: 1.2rem;
+  font-size: 0.88rem;
+}
+
+/* Code (rare here) */
+code {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--cream-shade);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  border-top: 1px solid #e0d8c8;
+  margin-top: 2rem;
+}
+
+/* Menu toggle (mobile) */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 200;
+  background: var(--burgundy);
+  color: white;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .sidebar { width: 200px; }
+  .layout { margin-left: 200px; }
+  main { padding: 1.5rem 1rem; }
+  section.card { padding: 1.5rem 1.25rem; }
+  .track-grid { grid-template-columns: 1fr; }
+  .bank-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+  .sidebar.open { transform: translateX(0); }
+  .layout { margin-left: 0; }
+  .menu-toggle { display: block; }
+  header.topbar { padding: 1rem; }
+  header.topbar .title { font-size: 1.8rem; }
+  .day-header { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+  .day-theme { margin-left: 0; }
+  .artifact { grid-template-columns: 1fr; gap: 0.3rem; }
+  table.aerial { font-size: 0.78rem; }
+  table.aerial th, table.aerial td { padding: 0.4rem 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="brand">
+    <img src="https://ezycourse.b-cdn.net/4009/cmfq4efvr0496dp9nbr9nfago.png" alt="Swift Tuition">
+    <div>
+      <div class="brand-text">Swift Tuition</div>
+      <div class="brand-sub">COS 132 — ST2 Programme</div>
+    </div>
+  </div>
+
+  <h4>The Programme</h4>
+  <ul>
+    <li><a class="nav-main active" href="#welcome">Good day</a></li>
+    <li><a class="nav-main" href="#how-it-works">How It Works</a></li>
+    <li><a class="nav-main" href="#aerial">7-Day Aerial View</a></li>
+  </ul>
+
+  <h4>The 7 Days</h4>
+  <ul>
+    <li><a class="section-link" href="#day-1">Day 1 — 27 Apr</a></li>
+    <li><a class="section-link" href="#day-2">Day 2 — 28 Apr</a></li>
+    <li><a class="section-link" href="#day-3">Day 3 — 29 Apr</a></li>
+    <li><a class="section-link" href="#day-4">Day 4 — 30 Apr</a></li>
+    <li><a class="section-link" href="#day-5">Day 5 — 1 May</a></li>
+    <li><a class="section-link" href="#day-6">Day 6 — 2 May</a></li>
+    <li><a class="section-link" href="#day-7">Day 7 — 3 May</a></li>
+  </ul>
+
+  <h4>Resources</h4>
+  <ul>
+    <li><a class="section-link" href="#mock-bank">Mock Test Bank</a></li>
+    <li><a class="section-link" href="#pracs">The 3 Pracs</a></li>
+    <li><a class="section-link" href="#videos">Code with Swift Library</a></li>
+  </ul>
+</aside>
+
+<div class="layout">
+  <header class="topbar">
+    <div class="title">Swift's ST2 Programme for Self-paced Learning</div>
+    <div class="subtitle">COS 132 &middot; Units G + H + I &middot; 27 April → 3 May 2026</div>
+  </header>
+
+  <main>
+
+    <!-- Welcome -->
+    <section class="card" id="welcome">
+      <h2>Good day, good people</h2>
+      <p>This is your seven-day run-up to ST2. It's self-paced. Three tracks run in parallel and you decide how hard to push on each.</p>
+
+      <p>Every day has a <strong>recommended core</strong>: one video to watch, one pattern to reproduce, one mock test to attempt. That's the minimum I'd like you to hit. New tests, videos and pracs unlock as the week progresses, so the bank grows under you. If a recommended item doesn't click, replay the video, redo the test, or message me.</p>
+
+      <div class="callout">
+        <div class="head">What this page is</div>
+        <p>A live overview of the programme. The status badges next to each item show you what's <span class="badge badge-live">Live</span>, what's <span class="badge badge-build">In Build</span>, and what's <span class="badge badge-soon">Coming Soon</span>. Things ship across the week, so not everything will be ready on Day 1. Keep the page open and refresh as you go.</p>
+      </div>
+
+      <p class="legend">
+        <span class="legend-item"><span class="badge badge-live">Live</span> Built and ready to use.</span>
+        <span class="legend-item"><span class="badge badge-build">In Build</span> Being made right now.</span>
+        <span class="legend-item"><span class="badge badge-soon">Coming Soon</span> Planned, not yet started.</span>
+      </p>
+    </section>
+
+    <!-- How It Works -->
+    <section class="card" id="how-it-works">
+      <h2>How It Works</h2>
+      <p>There are three tracks, running side by side across the seven days. You don't have to do all three every day. Pick what you need.</p>
+
+      <div class="track-grid">
+        <div class="track-card">
+          <h4>Code with Swift</h4>
+          <p><strong>Reproduction drills.</strong> In each short video I write one common pattern from scratch and explain every line as I go. You watch, close the video, then write the same program yourself from a blank file. Doing it with your own hands is what makes the pattern stick.</p>
+        </div>
+        <div class="track-card">
+          <h4>Pracs</h4>
+          <p><strong>Architectural challenges.</strong> Three pracs over the week, with each one harder than the one before it. GitHub Codespaces, multi-file C++. They drop on Days 1, 4 and 5, and they're all due by the end of Day 7.</p>
+        </div>
+        <div class="track-card">
+          <h4>Mock Tests</h4>
+          <p><strong>Exam-difficulty self-checks.</strong> Fifteen tests in a bank organised by unit. One recommended each day, the rest open whenever you want a fresh attempt.</p>
+        </div>
+      </div>
+
+      <h3>Architecture progression</h3>
+      <p>The Code with Swift videos move through three stages of how a C++ program is laid out, from simplest to most realistic. By the end of the week you'll have written every stage yourself.</p>
+      <ul>
+        <li><strong>Stage 1.</strong> One file, everything in <code>main()</code>. The starting point.</li>
+        <li><strong>Stage 2.</strong> One file, but with function declarations above <code>main()</code> and definitions below. Multiple functions, still one file.</li>
+        <li><strong>Stage 3.</strong> Minimum three-file architecture — <code>.h</code> + <code>.cpp</code> + <code>main.cpp</code>. Include guards, header inclusion, multi-file compilation.</li>
+      </ul>
+
+      <h3>The 8 plans from L17</h3>
+      <p>Every video uses one or more of the eight coding patterns from Lecture 17. All eight are covered by the end of Day 4. Days 5 to 7 then revisit those same patterns in pointer, array and file code, so you can see they show up almost everywhere, not only inside loops.</p>
+      <p style="margin-top:0.6rem;">
+        <span class="plan-pill">A</span> read known count
+        <span class="plan-pill">B</span> read count first
+        <span class="plan-pill">C</span> sentinel
+        <span class="plan-pill">D</span> validate input
+        <span class="plan-pill">E</span> count
+        <span class="plan-pill">F</span> accumulate
+        <span class="plan-pill">G</span> max / min
+        <span class="plan-pill">H</span> swap
+      </p>
+    </section>
+
+    <!-- Aerial -->
+    <section class="card" id="aerial">
+      <h2>The 7-Day Aerial View</h2>
+      <p>Recommended path at a glance. New tests unlock as you move through the week — the "Bank Available" column on each day card shows what's open at that point. The "Mock" column shows the one test I'd recommend you do that day, not the only one you can do.</p>
+
+      <table class="aerial">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Stage</th>
+            <th>Code with Swift</th>
+            <th>L17 Plans</th>
+            <th>Prac</th>
+            <th>Mock (Recommended)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="day-col">1</td>
+            <td>Stage 1</td>
+            <td>Read N, sum them</td>
+            <td><span class="plan-pill">A</span> <span class="plan-pill">F</span></td>
+            <td><strong>P1 drops</strong></td>
+            <td>Foundations #1</td>
+          </tr>
+          <tr>
+            <td class="day-col">2</td>
+            <td>Stage 1 → 2</td>
+            <td>Sentinel + count + max</td>
+            <td><span class="plan-pill">C</span> <span class="plan-pill">E</span> <span class="plan-pill">G</span></td>
+            <td>—</td>
+            <td>Unit G #1</td>
+          </tr>
+          <tr>
+            <td class="day-col">3</td>
+            <td>Stage 2</td>
+            <td>Read count + recursive sum</td>
+            <td><span class="plan-pill">B</span> <span class="plan-pill">F</span></td>
+            <td>—</td>
+            <td>Unit G #2</td>
+          </tr>
+          <tr>
+            <td class="day-col">4</td>
+            <td>Stage 2</td>
+            <td>Validate + three-mode swap</td>
+            <td><span class="plan-pill">D</span> <span class="plan-pill">H</span></td>
+            <td><strong>P2 drops</strong></td>
+            <td>Unit H #1</td>
+          </tr>
+          <tr>
+            <td class="day-col">5</td>
+            <td>Stage 3</td>
+            <td>String pointer trio</td>
+            <td><span class="plan-pill revisit">A</span> <span class="plan-pill revisit">F</span> <span class="plan-pill revisit">H</span></td>
+            <td><strong>P3 drops</strong></td>
+            <td>Unit H #2</td>
+          </tr>
+          <tr>
+            <td class="day-col">6</td>
+            <td>Stage 3+</td>
+            <td>File → dynamic 1D array</td>
+            <td><span class="plan-pill revisit">B</span> <span class="plan-pill revisit">C</span> <span class="plan-pill revisit">F</span> <span class="plan-pill revisit">G</span> <span class="plan-pill revisit">A</span></td>
+            <td>—</td>
+            <td>Unit H #3 or Unit I #1</td>
+          </tr>
+          <tr>
+            <td class="day-col">7</td>
+            <td>Walkthrough</td>
+            <td>ST2 2024 live solve</td>
+            <td>All 8 (annotated)</td>
+            <td>P3 due</td>
+            <td>Comprehensive #1 (full ST2 mock)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="font-size:0.85rem; color: var(--muted); margin-top: 0.5rem;">Burgundy pills are first-introduction. Teal pills are revisits in pointer / array / file form.</p>
+    </section>
+
+    <!-- DAYS -->
+
+    <!-- Day 1 -->
+    <section class="day-card" id="day-1">
+      <div class="day-header">
+        <div class="day-number">Day 1</div>
+        <div class="day-date">Mon, 27 Apr 2026</div>
+        <div class="day-theme">Foundations + first patterns</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Stage</div>
+        <div class="artifact-body"><span class="badge badge-stage">Stage 1</span> Single file, everything in <code>main()</code>.</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Video</div>
+        <div class="artifact-body">
+          <strong>Read N quiz scores, sum them</strong> &middot; <span class="plan-pill">A</span> <span class="plan-pill">F</span> &nbsp; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">Concepts: <code>#include &lt;iostream&gt;</code>, <code>cin</code>, <code>for</code>-loop counter, accumulator initialised to 0, <code>cout</code> formatting. Anchored to L17 Plans A and F.</div>
+        </div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Prac</div>
+        <div class="artifact-body">
+          <strong>P1 — The Library Catalogue drops</strong> &middot; <span class="badge badge-build">In Build</span>
+          <div class="scope">Headers complete, <code>.cpp</code> stubbed, <code>main.cpp</code> as test driver. Plans A, B, E, F, G + L18 translation. Due Day 4.</div>
+        </div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Mock</div>
+        <div class="artifact-body">
+          <strong>Foundations #1</strong> &middot; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">30 min, 20–25 marks. ST1-territory baseline: control flow, loops, functions, multi-file basics. It helps you find weak spots before you start the ST2 work.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 2 -->
+    <section class="day-card" id="day-2">
+      <div class="day-header">
+        <div class="day-number">Day 2</div>
+        <div class="day-date">Tue, 28 Apr 2026</div>
+        <div class="day-theme">Patterns + translation</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Stage</div>
+        <div class="artifact-body"><span class="badge badge-stage">Stage 1 → 2</span> Function signatures appear above <code>main()</code>; definitions below.</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Video</div>
+        <div class="artifact-body">
+          <strong>Sentinel read, count passes, find highest</strong> &middot; <span class="plan-pill">C</span> <span class="plan-pill">E</span> <span class="plan-pill">G</span> &nbsp; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">Concepts: <code>while</code> with sentinel, conditional increment for counting, initialise-before-loop discipline, function prototypes. L17 + light L18 (why <code>while</code> not <code>for</code>).</div>
+        </div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Prac</div>
+        <div class="artifact-body">P1 in flight — keep working.</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Mock</div>
+        <div class="artifact-body">
+          <strong>Unit G #1</strong> &middot; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">45 min, 25 marks, ST2-style. Plan recognition + for ↔ while translation (L17 + L18).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 3 -->
+    <section class="day-card" id="day-3">
+      <div class="day-header">
+        <div class="day-number">Day 3</div>
+        <div class="day-date">Wed, 29 Apr 2026</div>
+        <div class="day-theme">Recursion fluency</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Stage</div>
+        <div class="artifact-body"><span class="badge badge-stage">Stage 2</span> Multi-function single file.</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Video</div>
+        <div class="artifact-body">
+          <strong>Read the count, sum recursively</strong> &middot; <span class="plan-pill">B</span> <span class="plan-pill">F</span> &nbsp; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">Concepts: read N first, recursive function with explicit base case + recursive case, recursion–iteration equivalence shown live, call stack drawn alongside. L17 (Plan B) + L19 (simple recursion).</div>
+        </div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Prac</div>
+        <div class="artifact-body">P1 due tomorrow — wrap it up.</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Mock</div>
+        <div class="artifact-body">
+          <strong>Unit G #2</strong> &middot; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">45 min, 25 marks. Recursion mechanics + Plan F via recursion + iteration↔recursion conversion.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 4 -->
+    <section class="day-card" id="day-4">
+      <div class="day-header">
+        <div class="day-number">Day 4</div>
+        <div class="day-date">Thu, 30 Apr 2026</div>
+        <div class="day-theme">Validation + parameter passing</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Stage</div>
+        <div class="artifact-body"><span class="badge badge-stage">Stage 2</span> Multiple function variants of the same operation coexisting.</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Video</div>
+        <div class="artifact-body">
+          <strong>Validate input, then swap three ways</strong> &middot; <span class="plan-pill">D</span> <span class="plan-pill">H</span> &nbsp; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">Concepts: input-validation loop (do-while), three swap variants — by-value (broken), by-reference, by-pointer. Why pass-by-value can't mutate the caller. L17 (Plans D, H) + L21 (parameter passing).</div>
+        </div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Prac</div>
+        <div class="artifact-body">
+          <strong>P2 — The Survival Inventory drops</strong> &middot; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">No headers given; you design them yourself. The <code>.cpp</code> files are empty, and the specs are in plain English. L17–L21. Due Day 7.</div>
+        </div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Mock</div>
+        <div class="artifact-body">
+          <strong>Unit H #1</strong> &middot; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">50 min, 30 marks. Flowchart-to-skeleton + memory diagrams + six parameter-passing modes.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 5 -->
+    <section class="day-card" id="day-5">
+      <div class="day-header">
+        <div class="day-number">Day 5</div>
+        <div class="day-date">Fri, 1 May 2026</div>
+        <div class="day-theme">Pointers + strings (multi-file)</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Stage</div>
+        <div class="artifact-body"><span class="badge badge-stage">Stage 3</span> Minimum three-file build — <code>.h</code> + <code>.cpp</code> + <code>main.cpp</code> with include guards.</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Video</div>
+        <div class="artifact-body">
+          <strong>Build your own string library</strong> &middot; <span class="plan-pill revisit">A</span> <span class="plan-pill revisit">F</span> <span class="plan-pill revisit">H</span> &nbsp; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">Concepts: <code>printString</code>, <code>stringLength</code> and <code>reverseString</code> written from scratch using pointer iteration. Header and implementation split, include guards, multi-file compilation. The same L17 plans you've already practised show up here in string code. L22 plus Unit C/D multi-file basics.</div>
+        </div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Prac</div>
+        <div class="artifact-body">
+          <strong>P3 — The Triage Roster drops</strong> &middot; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">You get only <code>Specs.md</code> and a <code>tests/</code> directory. You build everything else from scratch. Full Unit G + H + I synthesis. Due Day 7 EOD.</div>
+        </div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Mock</div>
+        <div class="artifact-body">
+          <strong>Unit H #2</strong> &middot; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">50 min, 30 marks. Pointers + strings via pointers + const positions. Mirrors ST2 2024 Q5.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 6 -->
+    <section class="day-card" id="day-6">
+      <div class="day-header">
+        <div class="day-number">Day 6</div>
+        <div class="day-date">Sat, 2 May 2026</div>
+        <div class="day-theme">File I/O + arrays (synthesis)</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Stage</div>
+        <div class="artifact-body"><span class="badge badge-stage">Stage 3+</span> Multi-module — two header / source pairs plus <code>main.cpp</code>.</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Video</div>
+        <div class="artifact-body">
+          <strong>Read students from file, find the top</strong> &middot; <span class="plan-pill revisit">B</span> <span class="plan-pill revisit">C</span> <span class="plan-pill revisit">F</span> <span class="plan-pill revisit">G</span> <span class="plan-pill revisit">A</span> &nbsp; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">Concepts: <code>ifstream</code> / <code>ofstream</code>, dynamic 1D array with <code>new[]</code> / <code>delete[]</code>, <code>arr[i] == *(arr + i)</code> shown explicitly, function-parameter array decay. L23 (file streams) + L24 (1D arrays) + projected L25 (pointer-array duality, dynamic 1D).</div>
+        </div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Live Session</div>
+        <div class="artifact-body">
+          <strong>Q&amp;A + common-mistakes review</strong> &middot; ~60–90 min &middot; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">Time and link to be confirmed. Bring questions on Unit H pointers, strings, dynamic memory. Pracs in progress are fair game.</div>
+        </div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Mock</div>
+        <div class="artifact-body">
+          <strong>Unit H #3 or Unit I #1</strong> &middot; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">Your choice. H#3 if you want to nail memory cold; I#1 if you want to push into file streams + arrays early.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 7 -->
+    <section class="day-card" id="day-7">
+      <div class="day-header">
+        <div class="day-number">Day 7</div>
+        <div class="day-date">Sun, 3 May 2026</div>
+        <div class="day-theme">Full ST2 simulation</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Stage</div>
+        <div class="artifact-body">Walkthrough only — every question annotated with which stage and which plans it needs.</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Video</div>
+        <div class="artifact-body">
+          <strong>ST2 2024 — live solve, question by question</strong> &middot; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">All 8 plans called out across the paper. Plus exam technique: how to budget your time, which questions carry the most marks, and what examiners look for in the answers. About 60–75 minutes.</div>
+        </div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Live Session</div>
+        <div class="artifact-body">
+          <strong>Live ST2 paper solve + Q&amp;A</strong> &middot; ~90 min &middot; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">Time and link to be confirmed.</div>
+        </div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Prac</div>
+        <div class="artifact-body"><strong>P3 due, end of day.</strong> All three pracs closed by midnight.</div>
+      </div>
+
+      <div class="artifact">
+        <div class="artifact-label">Mock</div>
+        <div class="artifact-body">
+          <strong>Comprehensive #1 — Full ST2 Mock</strong> &middot; <span class="badge badge-soon">Coming Soon</span>
+          <div class="scope">90 min, 60 marks, exam format. New questions in the style of ST2 2024 and E03 2023. As close as you can get to sitting the real paper without sitting it.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mock Test Bank -->
+    <section class="card" id="mock-bank">
+      <h2>Mock Test Bank</h2>
+      <p>Fifteen tests, organised by unit. <strong>Open from the day they land.</strong> The daily "recommended" is the one I'd suggest you start with. If you feel solid, one per unit is enough. If you want more reps, do all three.</p>
+
+      <div class="swift-note">
+        <div class="head">Why three per unit</div>
+        <p>If you do badly on a test and want to retry the same scope, redoing the same paper doesn't teach you much because you already remember the answers. That's why each unit has three different papers covering the same scope at the same difficulty. The shape of the test stays the same; the questions are new.</p>
+      </div>
+
+      <div class="swift-note">
+        <div class="head">Logo is still examinable</div>
+        <p>A lecturer recently confirmed that ST2 can ask Logo→C++ conversion questions. That includes conversions involving loops, and conversions where your C++ answer is expected to use pointers or references — even though Logo itself has neither. Every bank below includes at least one Logo→C++ conversion question pitched at the right difficulty for that unit.</p>
+      </div>
+
+      <h3>Foundations Bank — Units C → F &middot; L7–L16</h3>
+      <p style="font-size:0.9rem; color:var(--muted);">ST1-territory refresh. Project structure, types, expressions, functions, selection, repetition. Includes Logo→C++ loop-conversion questions at increasing difficulty.</p>
+      <div class="bank-grid">
+        <div class="bank-card">
+          <h4>Foundations #1 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">30 min &middot; 20–25 marks &middot; Easy</div>
+          <ul><li>Single-concept questions</li><li>Diagnostic — find the cracks</li></ul>
+        </div>
+        <div class="bank-card">
+          <h4>Foundations #2 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">30 min &middot; 20–25 marks &middot; Medium</div>
+          <ul><li>Composite questions</li><li>Light L17 plan recognition</li></ul>
+        </div>
+        <div class="bank-card">
+          <h4>Foundations #3 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">30 min &middot; 20–25 marks &middot; Hard</div>
+          <ul><li>Exam-realistic ST1 difficulty</li></ul>
+        </div>
+      </div>
+
+      <h3>Unit G Bank — L17–L19</h3>
+      <p style="font-size:0.9rem; color:var(--muted);">Coding patterns, loop translation, simple recursion. Includes Logo→C++ conversions of the L17 plans (sentinel, accumulate, find max, etc.) and Logo recursion → C++ recursion.</p>
+      <div class="bank-grid">
+        <div class="bank-card">
+          <h4>Unit G #1 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">45 min &middot; 25 marks &middot; Easy</div>
+          <ul><li>Pattern recognition (Plans A–H)</li><li>for ↔ while translation</li></ul>
+        </div>
+        <div class="bank-card">
+          <h4>Unit G #2 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">45 min &middot; 25 marks &middot; Medium</div>
+          <ul><li>Recursion mechanics</li><li>Plan F via recursion</li></ul>
+        </div>
+        <div class="bank-card">
+          <h4>Unit G #3 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">45 min &middot; 25 marks &middot; Hard</div>
+          <ul><li>Composite plans + recursion + translation</li></ul>
+        </div>
+      </div>
+
+      <h3>Unit H Bank — L20–L22</h3>
+      <p style="font-size:0.9rem; color:var(--muted);">Flowchart design, memory management, pointers, strings, const. Includes Logo→C++ conversions where the C++ output is expected to use pointers or references, even though Logo doesn't have them.</p>
+      <div class="bank-grid">
+        <div class="bank-card">
+          <h4>Unit H #1 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">50 min &middot; 30 marks &middot; Easy</div>
+          <ul><li>Flowchart-to-skeleton</li><li>Memory diagrams + parameter passing</li></ul>
+        </div>
+        <div class="bank-card">
+          <h4>Unit H #2 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">50 min &middot; 30 marks &middot; Medium</div>
+          <ul><li>Pointers + strings via pointers</li><li>const positions</li></ul>
+        </div>
+        <div class="bank-card">
+          <h4>Unit H #3 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">60 min &middot; 35 marks &middot; Hard</div>
+          <ul><li>Full memory management synthesis</li></ul>
+        </div>
+      </div>
+
+      <h3>Unit I Bank — L23–L26 <span style="font-size:0.85rem; font-weight:400; color:var(--muted);">(provisional — L25/L26 projected)</span></h3>
+      <p style="font-size:0.9rem; color:var(--muted);">File streams, 1D arrays, pointer-array duality, dynamic 1D, 2D-with-pointers intro. May include Logo list operations → C++ array operations as a conversion question.</p>
+      <div class="bank-grid">
+        <div class="bank-card">
+          <h4>Unit I #1 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">50 min &middot; 30 marks &middot; Easy</div>
+          <ul><li>File streams + 1D arrays Part 1 (L23 + L24)</li><li>Buildable from existing lecture material</li></ul>
+        </div>
+        <div class="bank-card">
+          <h4>Unit I #2 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">50 min &middot; 30 marks &middot; Medium</div>
+          <ul><li>Pointer-array duality, dynamic 1D (L25)</li><li>Final polish when L25 lectures release</li></ul>
+        </div>
+        <div class="bank-card">
+          <h4>Unit I #3 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">50 min &middot; 30 marks &middot; Hard</div>
+          <ul><li>2D with pointers intro (L26)</li><li>Drafted from E03 2023 Q2 patterns</li></ul>
+        </div>
+      </div>
+
+      <h3>Comprehensive Bank — Full G + H + I</h3>
+      <p style="font-size:0.9rem; color:var(--muted);">Full ST2 simulations. Different question mixes, same exam format. Each paper has at least one Logo→C++ conversion question, mirroring the lecturer's stated scope.</p>
+      <div class="bank-grid">
+        <div class="bank-card">
+          <h4>Comprehensive #1 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">90 min &middot; 60 marks &middot; Exam</div>
+          <ul><li>Full ST2 mock</li><li>Day 7 recommended</li></ul>
+        </div>
+        <div class="bank-card">
+          <h4>Comprehensive #2 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">90 min &middot; 60 marks &middot; Exam</div>
+          <ul><li>Alt ST2 mock — different question mix</li></ul>
+        </div>
+        <div class="bank-card">
+          <h4>Comprehensive #3 <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">90 min &middot; 60 marks &middot; Exam+</div>
+          <ul><li>Hardest — extra rep before the real ST2</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pracs -->
+    <section class="card" id="pracs">
+      <h2>The 3 Pracs</h2>
+      <p>Three practicals that get harder as the week goes on. They run on GitHub Codespaces in C++98. Each one gives you less scaffolding than the last, so by the third you're building from a one-page spec.</p>
+
+      <div class="bank-grid" style="grid-template-columns: 1fr;">
+        <div class="bank-card" style="border-left-color: var(--teal);">
+          <h4>P1 — The Library Catalogue <span class="badge badge-build">In Build</span></h4>
+          <div class="bank-meta">Drops Day 1 (27 Apr) &middot; Due Day 4 (30 Apr) &middot; ~2–3 hours</div>
+          <p style="font-size:0.9rem;"><strong>What you get:</strong> <code>.h</code> files complete with full declarations + Doxygen-style comments. <code>.cpp</code> files stubbed (signatures + <code>// TODO</code> bodies). <code>main.cpp</code> complete and working as a test driver.</p>
+          <p style="font-size:0.9rem;"><strong>Scope:</strong> L7–L10 multi-file basics + L17 Plans A, B, E, F, G + one L18 translation task forcing for ↔ while conversion.</p>
+        </div>
+
+        <div class="bank-card" style="border-left-color: var(--amber);">
+          <h4>P2 — The Survival Inventory <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">Drops Day 4 (30 Apr) &middot; Due Day 7 (3 May) &middot; ~4–5 hours</div>
+          <p style="font-size:0.9rem;"><strong>What you get:</strong> No <code>.h</code> files. <code>.cpp</code> files unstubbed — specs in plain English. <code>main.cpp</code> is a test harness only. Code does not compile until you write everything.</p>
+          <p style="font-size:0.9rem;"><strong>Scope:</strong> L17–L21. Header design judgment, recursive nested-container depth check, flowchart-driven menu loop, pass-by-reference for state mutation, pass-by-const-reference for read-only.</p>
+        </div>
+
+        <div class="bank-card" style="border-left-color: var(--burgundy);">
+          <h4>P3 — The Triage Roster <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">Drops Day 5 (1 May) &middot; Due Day 7 (3 May) &middot; ~6–8 hours</div>
+          <p style="font-size:0.9rem;"><strong>What you get:</strong> Only <code>Specs.md</code> and a <code>tests/</code> directory. You build everything else from scratch.</p>
+          <p style="font-size:0.9rem;"><strong>Scope:</strong> L17–L26. All 8 L17 plans woven into the system. Recursive priority-bubbling. const-correctness. Pointer iteration. Dynamic 1D arrays. File I/O. Light 2D array indexing for the schedule grid.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Videos -->
+    <section class="card" id="videos">
+      <h2>Code with Swift Library</h2>
+      <p>Seven reproduction-drill videos. Watch one, close it, then write the same program from scratch. Each video is short and focused on a single pattern, with no extra story or architecture work around it.</p>
+
+      <div class="callout">
+        <div class="head">How to use a Code with Swift video</div>
+        <ol>
+          <li>Watch all the way through once. Don't pause.</li>
+          <li>Close the video. Open a fresh file.</li>
+          <li>Write the program from scratch. If you get stuck, write what you can and note where.</li>
+          <li>Compare. Re-watch only the section you missed.</li>
+          <li>Write it again. The second pass is where the pattern locks in.</li>
+        </ol>
+      </div>
+
+      <div class="bank-grid" style="grid-template-columns: 1fr;">
+        <div class="bank-card">
+          <h4>Video 1 — Read N quiz scores, sum them <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">Day 1 &middot; Stage 1 &middot; ~10–15 min &middot; <span class="plan-pill">A</span> <span class="plan-pill">F</span></div>
+        </div>
+        <div class="bank-card">
+          <h4>Video 2 — Sentinel read, count + find max <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">Day 2 &middot; Stage 1 → 2 &middot; ~10–15 min &middot; <span class="plan-pill">C</span> <span class="plan-pill">E</span> <span class="plan-pill">G</span></div>
+        </div>
+        <div class="bank-card">
+          <h4>Video 3 — Read count first, recursive sum <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">Day 3 &middot; Stage 2 &middot; ~12–18 min &middot; <span class="plan-pill">B</span> <span class="plan-pill">F</span></div>
+        </div>
+        <div class="bank-card">
+          <h4>Video 4 — Validate input, three-mode swap <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">Day 4 &middot; Stage 2 &middot; ~12–18 min &middot; <span class="plan-pill">D</span> <span class="plan-pill">H</span></div>
+        </div>
+        <div class="bank-card">
+          <h4>Video 5 — Build your own string library <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">Day 5 &middot; Stage 3 &middot; ~15–20 min &middot; <span class="plan-pill revisit">A</span> <span class="plan-pill revisit">F</span> <span class="plan-pill revisit">H</span></div>
+        </div>
+        <div class="bank-card">
+          <h4>Video 6 — Read students from file, find the top <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">Day 6 &middot; Stage 3+ &middot; ~15–20 min &middot; <span class="plan-pill revisit">B</span> <span class="plan-pill revisit">C</span> <span class="plan-pill revisit">F</span> <span class="plan-pill revisit">G</span> <span class="plan-pill revisit">A</span></div>
+        </div>
+        <div class="bank-card">
+          <h4>Video 7 — ST2 2024 walkthrough <span class="badge badge-soon">Coming Soon</span></h4>
+          <div class="bank-meta">Day 7 &middot; Walkthrough &middot; ~60–75 min &middot; All 8 plans annotated</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing -->
+    <section class="card lighter">
+      <h2>One last thing</h2>
+      <p>This page is the home base for the programme. Keep it open and refresh it as you go. When something ships, its badge moves from <span class="badge badge-soon">Coming Soon</span> to <span class="badge badge-build">In Build</span> to <span class="badge badge-live">Live</span>. The recommended path itself doesn't change; more options just appear underneath it.</p>
+      <p>By the end of the week there will be three tracks, fifteen mock tests, three pracs, seven videos and two live sessions on this page. You don't have to do all of it. Do as much as you need to feel ready for ST2.</p>
+      <p style="margin-top: 1rem; font-style: italic; color: var(--muted);">— Swift</p>
+    </section>
+
+  </main>
+
+  <footer>COS 132 &middot; UP &middot; ST2 Programme &middot; Last updated 27 Apr 2026</footer>
+</div>
+
+<button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menu</button>
+
+<script>
+// IntersectionObserver scroll-spy for sidebar
+(function() {
+  const sections = document.querySelectorAll('main section[id], main .day-card[id]');
+  const links = document.querySelectorAll('.sidebar a.section-link, .sidebar a.nav-main');
+  if (!('IntersectionObserver' in window) || !sections.length) return;
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => obs.observe(s));
+})();
+</script>
+
+</body>
+</html>

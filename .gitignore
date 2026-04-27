@@ -1,0 +1,34 @@
+# LaTeX build artifacts — generated externally, not tracked here.
+# The canonical source for any test / memo / prac is the .md file.
+# PDFs (when produced) are committed; .tex / .aux / .out are not.
+*.aux
+*.out
+*.log
+*.toc
+*.tex
+*.sty
+build-*.js
+
+# Compiled binaries
+squad
+squad.exe
+*.exe
+*.o
+*.obj
+
+# Grader output (generated each run)
+grade-report.txt
+
+# Build directories
+build/
+
+# Verification artifacts (internal to Swift's build process)
+agent-attempt/
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*~

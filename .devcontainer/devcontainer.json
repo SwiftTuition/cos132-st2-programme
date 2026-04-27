@@ -1,0 +1,24 @@
+{
+  "name": "COS 132 ST2 Programme",
+  "image": "mcr.microsoft.com/devcontainers/cpp:debian",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.makefile-tools"
+      ],
+      "settings": {
+        "C_Cpp.default.cppStandard": "c++98",
+        "C_Cpp.default.compilerArgs": [
+          "-std=c++98",
+          "-Wall",
+          "-Wextra",
+          "-pedantic"
+        ]
+      }
+    }
+  },
+  "postCreateCommand": "echo '\\n=========================================\\n  COS 132 ST2 Programme\\n  Open day-01/README.md to get started.\\n=========================================\\n'",
+  "remoteUser": "vscode"
+}

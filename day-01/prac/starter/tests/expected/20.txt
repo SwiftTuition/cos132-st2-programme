@@ -1,0 +1,10 @@
+-----SQUAD MEMBER LOG-----
+Name: Caleb
+Sessions: 4
+Hours: 8
+Average: 60
+--------------------------
+On fire: 0
+Passing: 1
+Can tutor: 0
+Squad Star: 0

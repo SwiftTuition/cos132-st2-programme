@@ -1,0 +1,27 @@
+# Default: let git auto-handle text files
+* text=auto
+
+# These MUST be LF (POSIX shell scripts, C++ source, Makefiles, test fixtures)
+*.sh text eol=lf
+*.cpp text eol=lf
+*.h text eol=lf
+*.hpp text eol=lf
+**/Makefile text eol=lf
+**/tests/inputs/*.txt text eol=lf
+**/tests/expected/*.txt text eol=lf
+
+# Markdown / config can normalise per-OS
+*.md text
+*.json text
+*.yml text
+*.yaml text
+
+# Binary formats (don't try to diff or normalise)
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.zip binary
+*.mp4 binary
+*.mov binary
