@@ -25,6 +25,10 @@ build/
 # Verification artifacts (internal to Swift's build process)
 agent-attempt/
 
+# Video scripts are internal recording notes, not student-facing.
+# They stay in the local working tree but are not part of the public repo.
+**/video-script.md
+
 # Editor / OS files
 .vscode/
 .idea/
