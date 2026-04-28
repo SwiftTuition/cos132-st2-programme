@@ -19,6 +19,6 @@
       }
     }
   },
-  "postCreateCommand": "echo '\\n=========================================\\n  COS 132 ST2 Programme\\n  Open day-01/README.md to get started.\\n=========================================\\n'",
+  "postCreateCommand": "find . -name '*.sh' -type f -exec chmod +x {} \\; && echo '\\n=========================================\\n  COS 132 ST2 Programme\\n  Setup: shell scripts marked executable.\\n  Open day-01/README.md to get started.\\n=========================================\\n'",
   "remoteUser": "vscode"
 }

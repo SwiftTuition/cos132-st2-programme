@@ -9,6 +9,20 @@ PRAC_NAME="Practical 1: The Study Squad Tracker"
 BINARY="./squad"
 TESTS_DIR="tests"
 
+# Sanity check: grade.sh must be run from inside a prac's starter/ folder.
+# We expect a Makefile and a tests/ directory next to this script.
+if [ ! -f "Makefile" ] || [ ! -d "$TESTS_DIR" ]; then
+    echo "Error: grade.sh must be run from inside a prac's starter/ folder."
+    echo "Expected a Makefile and a tests/ directory in the current folder."
+    echo
+    echo "You're currently in:"
+    echo "  $(pwd)"
+    echo
+    echo "Try:"
+    echo "  cd \"\$(git rev-parse --show-toplevel)/day-01/prac/starter\" && ./grade.sh"
+    exit 1
+fi
+
 # Test definitions: id|name|marks
 TEST_DEFS=(
     "1|addHours: basic|3"
